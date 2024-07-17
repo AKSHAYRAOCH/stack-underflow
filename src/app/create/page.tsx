@@ -10,7 +10,7 @@ async function HandlePost(formdata: FormData){
     const userid = session?.user?.id
     
     
-    const result = await db.insert(Posts).values({postContent:String(formdata.get("mesage")),postOwnerId:userid}).returning()
+    const result = await db.insert(Posts).values({postContent:String(formdata.get("message")),postOwnerId:userid}).returning()
     console.log(result)
 }
 
