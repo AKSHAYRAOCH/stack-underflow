@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 import db from "@/db/drizzle"
-import {Posts} from "@/db/schema"
+import {posts} from "@/db/schema"
 
 
 
@@ -10,8 +10,13 @@ async function HandlePost(formdata: FormData){
     const userid = session?.user?.id
     
     
-    const result = await db.insert(Posts).values({postContent:String(formdata.get("message")),postOwnerId:userid}).returning()
+    try{
+      const result = await db.insert(posts).values({postContent:formdata.get("message") as string,postOwnerId:userid}).returning()
     console.log(result)
+    }
+    catch(err){
+      console.log(err)
+    }
 }
 
 
@@ -29,7 +34,7 @@ export default async function CreatePost() {
           
           <div>
             <label>Message</label>
-            <textarea name="message" />
+            <textarea name="message" required />
           </div>
   
           <button type="submit">Send message</button>
@@ -37,3 +42,4 @@ export default async function CreatePost() {
       </div>
     )
   }
+

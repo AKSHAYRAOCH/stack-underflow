@@ -89,10 +89,10 @@ export const authenticators = pgTable(
 )
 
 
-export const Posts = pgTable(
+export const posts = pgTable(
   "posts",{
     postID: serial('postId').primaryKey(),
-    postContent: text("postContent"),
+    postContent: text("postContent").notNull(),
     postOwnerId: text("postOwnerId").references(()=>users.id)
   }
 )
