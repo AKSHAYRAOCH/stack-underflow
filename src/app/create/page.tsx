@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import db from "@/db/drizzle"
 import {posts} from "@/db/schema"
-
+import { Button } from "antd";
 
 
 async function HandlePost(formdata: FormData){
@@ -38,7 +38,7 @@ export default async function CreatePost() {
             <textarea name="message" required />
           </div>
   
-          <button type="submit">Send message</button>
+          <Button type="primary" htmlType="submit">Send message</Button>
         </form>
       </div>
     )
