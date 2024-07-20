@@ -1,15 +1,25 @@
 import db from "@/db/drizzle"
 import { posts, users } from "@/db/schema"
 import { eq } from "drizzle-orm"
+import { revalidatePath } from "next/cache"
+
+
+async function fetchData(){
+    
+    const data = await db.select({
+        id:posts.postID,
+        name: posts.postOwnerName,
+        content: posts.postContent
+    }).from(posts)
+    console.log(data)
+    revalidatePath('/posts')
+    return data
+}
 
 export default async function Posts(){
+    
 
-    const data = await db.select({
-        name:users.name,
-        id:posts.postID,
-        content:posts.postContent
-    }).from(posts).innerJoin(users,eq(posts.postOwnerId,users.id))
-    console.log(data)
+    const data = await fetchData()
     
     return(
         <div>

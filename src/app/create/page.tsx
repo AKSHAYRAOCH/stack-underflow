@@ -8,10 +8,11 @@ async function HandlePost(formdata: FormData){
     "use server"
     const session = await auth();
     const userid = session?.user?.id
+    const userName = session?.user?.name
     
     
     try{
-      const result = await db.insert(posts).values({postContent:formdata.get("message") as string,postOwnerId:userid}).returning()
+      const result = await db.insert(posts).values({postContent:formdata.get("message") as string,postOwnerId:userid, postOwnerName:userName}).returning()
     console.log(result)
     }
     catch(err){
