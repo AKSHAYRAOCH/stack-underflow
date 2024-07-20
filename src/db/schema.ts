@@ -93,6 +93,7 @@ export const posts = pgTable(
   "posts",{
     postID: serial('postId').primaryKey(),
     postContent: text("postContent").notNull(),
-    postOwnerId: text("postOwnerId").references(()=>users.id)
+    postOwnerId: text("postOwnerId").references(()=>users.id),
+    postOwnerName: text("postOwnerName").references(()=>users.name)
   }
 )
