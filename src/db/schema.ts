@@ -6,6 +6,7 @@ import {
   primaryKey,
   integer,
   serial,
+  varchar
 } from "drizzle-orm/pg-core"
 
 import type { AdapterAccountType } from "next-auth/adapters"
@@ -94,6 +95,7 @@ export const posts = pgTable(
     postID: serial('postId').primaryKey(),
     postContent: text("postContent").notNull(),
     postOwnerId: text("postOwnerId").references(()=>users.id),
+    title: varchar("title", { length: 200 }).notNull(),
     postOwnerName: text("postOwnerName").references(()=>users.name)
   }
 )
